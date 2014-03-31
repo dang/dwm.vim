@@ -34,35 +34,33 @@ endif
 
 " All layout transformations assume the layout contains one master pane on the
 " left and an arbitrary number of stacked panes on the right
-" +--------+--------+
-" |        |   S1   |
-" |        +--------+
-" |   M    |   S3   |
-" |        +--------+
-" |        |   S3   |
-" +--------+--------+
+" +--------+--------+--+--+--+
+" |        |        |  |  |  |
+" |        |        |  |  |  |
+" |   M    |   S1   |S2|S3|S4|
+" |        |        |  |  |  |
+" |        |        |  |  |  |
+" +--------+--------+--+--+--+
 
 " Move the current master pane to the stack
-function! DWM_Stack(clockwise)
+function! DWM_Stack(ltor)
   1wincmd w
-  if a:clockwise
-    " Move to the top of the stack
-    wincmd K
+  if a:ltor
+    " Move to the left of the stack
+    wincmd H
   else
-    " Move to the bottom of the stack
-    wincmd J
+    " Move to the right of the stack
+    wincmd L
   endif
   " At this point, the layout *should* be the following with the previous master
-  " at the top.
-  " +-----------------+
-  " |        M        |
-  " +-----------------+
-  " |        S1       |
-  " +-----------------+
-  " |        S2       |
-  " +-----------------+
-  " |        S3       |
-  " +-----------------+
+  " at the left.
+  " +--------+--------+--+--+--+
+  " |        |        |  |  |  |
+  " |        |        |  |  |  |
+  " |   M    |   S1   |S2|S3|S4|
+  " |        |        |  |  |  |
+  " |        |        |  |  |  |
+  " +--------+--------+--+--+--+
 endfunction
 
 " Add a new buffer
@@ -124,7 +122,7 @@ function! DWM_Close()
     " Close master panel.
     return 'close | wincmd H | call DWM_ResizeMasterPaneWidth()'
   else
-    return 'close'
+    return 'close | 1wincmd w | call DWM_ResizeMasterPaneWidth()'
   end
 endfunction
 
@@ -139,6 +137,11 @@ function! DWM_ResizeMasterPaneWidth()
     else
       exec 'vertical resize ' . g:dwm_master_pane_width
     endif
+  else
+    exec 'vertical resize ' . ((33 * &columns)/100)
+    2wincmd w
+    exec 'vertical resize ' . ((33 * &columns)/100)
+    1wincmd w
   endif
 endfunction
 
@@ -168,9 +171,9 @@ function! DWM_ShrinkMaster()
   endif
 endfunction
 
-function! DWM_Rotate(clockwise)
-  call DWM_Stack(a:clockwise)
-  if a:clockwise
+function! DWM_Rotate(ltor)
+  call DWM_Stack(a:ltor)
+  if a:ltor
     wincmd W
   else
     wincmd w
