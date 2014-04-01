@@ -64,11 +64,15 @@ function! DWM_Stack(ltor)
 endfunction
 
 " Add a new buffer
-function! DWM_New()
+function! DWM_New(split)
   " Move current master pane to the stack
   call DWM_Stack(1)
   " Create a vertical split
-  vert topleft new
+  if a:split
+    vert topleft split
+  else
+    vert topleft new
+  endif
   call DWM_ResizeMasterPaneWidth()
 endfunction
 
@@ -185,7 +189,8 @@ endfunction
 nnoremap <silent> <Plug>DWMRotateCounterclockwise :call DWM_Rotate(0)<CR>
 nnoremap <silent> <Plug>DWMRotateClockwise        :call DWM_Rotate(1)<CR>
 
-nnoremap <silent> <Plug>DWMNew   :call DWM_New()<CR>
+nnoremap <silent> <Plug>DWMNew   :call DWM_New(0)<CR>
+nnoremap <silent> <Plug>DWMSplit   :call DWM_New(1)<CR>
 nnoremap <silent> <Plug>DWMClose :exec DWM_Close()<CR>
 nnoremap <silent> <Plug>DWMFocus :call DWM_Focus()<CR>
 
@@ -207,8 +212,8 @@ if g:dwm_map_keys
       nmap <C-.> <Plug>DWMRotateClockwise
   endif
 
-  if !hasmapto('<Plug>DWMNew')
-      nmap <C-N> <Plug>DWMNew
+  if !hasmapto('<Plug>DWMSplit')
+      nmap <C-N> <Plug>DWMSplit
   endif
   if !hasmapto('<Plug>DWMClose')
       nmap <C-C> <Plug>DWMClose
