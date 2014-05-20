@@ -186,6 +186,11 @@ function! DWM_Rotate(ltor)
   call DWM_ResizeMasterPaneWidth()
 endfunction
 
+function! DWM_Tag()
+  call DWM_New(1)
+  tag expand("<cword>")
+endfunction
+
 nnoremap <silent> <Plug>DWMRotateCounterclockwise :call DWM_Rotate(0)<CR>
 nnoremap <silent> <Plug>DWMRotateClockwise        :call DWM_Rotate(1)<CR>
 
@@ -196,6 +201,8 @@ nnoremap <silent> <Plug>DWMFocus :call DWM_Focus()<CR>
 
 nnoremap <silent> <Plug>DWMGrowMaster   :call DWM_GrowMaster()<CR>
 nnoremap <silent> <Plug>DWMShrinkMaster :call DWM_ShrinkMaster()<CR>
+
+nnoremap <silent> <Plug>DWMTag   :call DWM_Tag()<CR>
 
 if !exists('g:dwm_map_keys')
   let g:dwm_map_keys = 1
