@@ -113,11 +113,11 @@ function! DWM_AutoEnter()
   endif
 
   " Move new window to stack top
-  wincmd K
+  wincmd H
 
   " Focus new window (twice :)
   call DWM_Focus()
-  call DWM_Focus()
+  "call DWM_Focus()
 endfunction
 
 " Close the current window
