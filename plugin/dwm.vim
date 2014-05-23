@@ -117,7 +117,7 @@ function! DWM_AutoEnter()
 
   " Focus new window (twice :)
   call DWM_Focus()
-  "call DWM_Focus()
+  call DWM_Focus()
 endfunction
 
 " Close the current window
