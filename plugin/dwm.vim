@@ -95,10 +95,21 @@ function! DWM_Focus()
   call DWM_ResizeMasterPaneWidth()
 endfunction
 
+function! DWM_StartupComplete()
+  let g:dwm_startup_complete = 1
+endfunction
+
 " Handler for BufWinEnter autocommand
 " Recreate layout broken by new window
 function! DWM_AutoEnter()
+  if !exists("g:dwm_startup_complete")
+    return
+  endif
   if winnr('$') == 1
+    return
+  endif
+  " Skip unlisted (except help)
+  if !&l:buflisted && &l:filetype != 'help'
     return
   endif
 
@@ -241,6 +252,7 @@ endif
 if has('autocmd')
   augroup dwm
     au!
-    au BufWinEnter * if &l:buflisted || &l:filetype == 'help' | call DWM_AutoEnter() | endif
+    au BufWinEnter * call DWM_AutoEnter()
+    au VimEnter * call DWM_StartupComplete()
   augroup end
 endif
