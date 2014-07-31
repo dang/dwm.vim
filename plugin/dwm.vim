@@ -198,8 +198,9 @@ function! DWM_Rotate(ltor)
 endfunction
 
 function! DWM_Tag()
+  let l:target = expand("<cword>")
   call DWM_New(1)
-  tag expand("<cword>")
+  exec("tag " . l:target)
 endfunction
 
 nnoremap <silent> <Plug>DWMRotateCounterclockwise :call DWM_Rotate(0)<CR>
