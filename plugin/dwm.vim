@@ -84,9 +84,9 @@ function! DWM_Focus()
     return
   endif
 
-  if winnr() == 1
-    wincmd w
-  endif
+  "if winnr() == 1
+    "wincmd w
+  "endif
 
   let l:curwin = winnr()
   call DWM_Stack(1)
