@@ -145,6 +145,10 @@ function! DWM_ResizeMasterPaneWidth()
   " Make all windows equally high and wide
   wincmd =
 
+  if winnr('$') == 1
+    return
+  end
+
   " resize the master pane if user defined it
   if exists('g:dwm_master_pane_width')
     if type(g:dwm_master_pane_width) == type("")
