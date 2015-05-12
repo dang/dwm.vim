@@ -190,6 +190,13 @@ function! DWM_ShrinkMaster()
   endif
 endfunction
 
+function! DWM_ResetMaster()
+  if exists("g:dwm_master_pane_width")
+    unlet g:dwm_master_pane_width
+  endif
+  call DWM_ResizeMasterPaneWidth()
+endfunction
+
 function! DWM_Rotate(ltor)
   call DWM_Stack(a:ltor)
   if a:ltor
@@ -207,6 +214,11 @@ function! DWM_Tag()
   exec("tag " . l:target)
 endfunction
 
+function! DWM_FocusReset()
+  call DWM_Focus()
+  call DWM_ResetMaster()
+endfunction
+
 nnoremap <silent> <Plug>DWMRotateCounterclockwise :call DWM_Rotate(0)<CR>
 nnoremap <silent> <Plug>DWMRotateClockwise        :call DWM_Rotate(1)<CR>
 
@@ -217,7 +229,9 @@ nnoremap <silent> <Plug>DWMFocus :call DWM_Focus()<CR>
 
 nnoremap <silent> <Plug>DWMGrowMaster   :call DWM_GrowMaster()<CR>
 nnoremap <silent> <Plug>DWMShrinkMaster :call DWM_ShrinkMaster()<CR>
+nnoremap <silent> <Plug>DWMResetMaster :call DWM_ResetMaster()<CR>
 
+nnoremap <silent> <Plug>DWMFocusReset   :call DWM_FocusReset()<CR>
 nnoremap <silent> <Plug>DWMTag   :call DWM_Tag()<CR>
 
 if !exists('g:dwm_map_keys')
