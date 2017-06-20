@@ -113,10 +113,10 @@ function! DWM_AutoEnter()
     return
   endif
 
-  " Skip buffers without filetype
-  if !len(&l:filetype)
-    return
-  endif
+  "" Skip buffers without filetype
+  "if !len(&l:filetype)
+    "return
+  "endif
 
   " Skip quickfix buffers
   if &l:buftype == 'quickfix'
