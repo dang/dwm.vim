@@ -141,6 +141,18 @@ function! DWM_Close()
   end
 endfunction
 
+function! DWM_ZoomCurrentPane()
+  " Make all windows equally high and wide
+  wincmd =
+
+  if winnr('$') == 1
+    return
+  end
+
+  " resize the current pane
+  exec 'vertical resize ' . ((33 * &columns)/100)
+endfunction
+
 function! DWM_ResizeMasterPaneWidth()
   " Make all windows equally high and wide
   wincmd =
@@ -226,6 +238,7 @@ nnoremap <silent> <Plug>DWMNew   :call DWM_New(0)<CR>
 nnoremap <silent> <Plug>DWMSplit   :call DWM_New(1)<CR>
 nnoremap <silent> <Plug>DWMClose :exec DWM_Close()<CR>
 nnoremap <silent> <Plug>DWMFocus :call DWM_Focus()<CR>
+nnoremap <silent> <Plug>DWMZoom :call DWM_ZoomCurrentPane()<CR>
 
 nnoremap <silent> <Plug>DWMGrowMaster   :call DWM_GrowMaster()<CR>
 nnoremap <silent> <Plug>DWMShrinkMaster :call DWM_ShrinkMaster()<CR>
