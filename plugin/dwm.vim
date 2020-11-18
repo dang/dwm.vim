@@ -95,6 +95,13 @@ function! DWM_Focus()
   call DWM_ResizeMasterPaneWidth()
 endfunction
 
+" Move the current window to the bottom of the stack
+function! DWM_Bottom()
+  call DWM_Stack(0)
+  exec "wincmd w"
+  call DWM_ResizeMasterPaneWidth()
+endfunction
+
 function! DWM_StartupComplete()
   let g:dwm_startup_complete = 1
 endfunction
@@ -246,6 +253,7 @@ nnoremap <silent> <Plug>DWMResetMaster :call DWM_ResetMaster()<CR>
 
 nnoremap <silent> <Plug>DWMFocusReset   :call DWM_FocusReset()<CR>
 nnoremap <silent> <Plug>DWMTag   :call DWM_Tag()<CR>
+nnoremap <silent> <Plug>DWMBottom   :call DWM_Bottom()<CR>
 
 if !exists('g:dwm_map_keys')
   let g:dwm_map_keys = 1
